@@ -14,7 +14,11 @@ const MARQUEE_PHRASES = [
 
 const HERO_EASE = [0.22, 1, 0.36, 1] as const;
 
-export function Hero() {
+interface HeroProps {
+  ready: boolean;
+}
+
+export function Hero({ ready }: HeroProps) {
   const [imageError, setImageError] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -65,11 +69,11 @@ export function Hero() {
 
       <div className="relative max-w-6xl mx-auto px-6 py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          {/* Left Typographic Column with Staggered Entrance */}
+          {/* Left Typographic Column with Intro-Synced Staggered Entrance */}
           <div className="lg:col-span-7 flex flex-col items-start gap-6">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
               transition={{ duration: 0.45, ease: HERO_EASE }}
               className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FAB981]"
             >
@@ -80,7 +84,7 @@ export function Hero() {
             <div className="flex flex-col gap-3">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.55, delay: 0.08, ease: HERO_EASE }}
                 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-[#E6E8E9] leading-[1.08]"
               >
@@ -88,7 +92,7 @@ export function Hero() {
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
                 transition={{ duration: 0.5, delay: 0.16, ease: HERO_EASE }}
                 className="text-lg sm:text-xl font-medium text-[#90D0E5]"
               >
@@ -96,7 +100,7 @@ export function Hero() {
               </motion.p>
               <motion.p
                 initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
                 transition={{ duration: 0.5, delay: 0.22, ease: HERO_EASE }}
                 className="font-mono text-xs sm:text-sm text-[#B3BCC0] tracking-tight"
               >
@@ -106,7 +110,7 @@ export function Hero() {
 
             <motion.p
               initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
               transition={{ duration: 0.5, delay: 0.28, ease: HERO_EASE }}
               className="text-base text-[#B3BCC0] leading-relaxed max-w-2xl"
             >
@@ -115,7 +119,7 @@ export function Hero() {
 
             <motion.div
               initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
               transition={{ duration: 0.5, delay: 0.34, ease: HERO_EASE }}
               className="flex flex-wrap items-center gap-4 pt-1"
             >
@@ -148,9 +152,9 @@ export function Hero() {
             ref={cardRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            initial={{ opacity: 0, scale: 0.96, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.15, ease: HERO_EASE }}
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            animate={ready ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.94, y: 20 }}
+            transition={{ duration: 0.65, delay: 0.14, ease: HERO_EASE }}
             style={{ perspective: 1000 }}
             className="lg:col-span-5"
           >
@@ -199,16 +203,16 @@ export function Hero() {
         {/* Full-Width Key Anchors Row */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.42, ease: HERO_EASE }}
+          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+          transition={{ duration: 0.55, delay: 0.4, ease: HERO_EASE }}
           className="mt-12 pt-8 border-t border-[#2B3236] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {HERO_ANCHORS.map((item, idx) => (
             <motion.div
               key={item.label}
               initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.46 + idx * 0.06, ease: HERO_EASE }}
+              animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{ duration: 0.4, delay: 0.44 + idx * 0.06, ease: HERO_EASE }}
               whileHover={{ x: 3 }}
               className="flex flex-col gap-1 transition-colors"
             >
