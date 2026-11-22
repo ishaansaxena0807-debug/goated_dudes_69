@@ -1,6 +1,9 @@
 import { useState, type FormEvent } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { ArrowUpRight, Check, Copy, Mail, MapPin, Send } from 'lucide-react';
 import { PORTFOLIO_PROFILE } from '../data/portfolio';
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
 export function ContactSection() {
   const [copiedEmail, setCopiedEmail] = useState(false);
@@ -29,7 +32,9 @@ export function ContactSection() {
   };
 
   const buildMailtoHref = () => {
-    const mailSubject = encodeURIComponent(subject.trim() || `Portfolio Inquiry from ${name.trim()}`);
+    const mailSubject = encodeURIComponent(
+      subject.trim() || `Portfolio Inquiry from ${name.trim()}`
+    );
     const mailBody = encodeURIComponent(
       `Hi Ishaan,\n\n${message.trim()}\n\nFrom: ${name.trim()} (${senderEmail.trim()})`
     );
@@ -73,7 +78,13 @@ export function ContactSection() {
     <section id="contact" className="bg-[#0E1112]">
       <div className="max-w-6xl mx-auto px-6 py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
         {/* Left Column: Direct Channels */}
-        <div className="lg:col-span-5 flex flex-col gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: EASE_OUT }}
+          className="lg:col-span-5 flex flex-col gap-6"
+        >
           <div className="flex flex-col gap-3">
             <span className="font-mono text-xs uppercase tracking-widest text-[#90D0E5]">
               Contact
@@ -89,13 +100,18 @@ export function ContactSection() {
 
           <div className="flex flex-col gap-3">
             {/* Email Card + Copy Action */}
-            <div className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] flex flex-col gap-3">
+            <motion.div
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 360, damping: 25 }}
+              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#3D474C] transition-colors flex flex-col gap-3"
+            >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
                   Direct Email
                 </span>
-                <button
+                <motion.button
                   type="button"
+                  whileTap={{ scale: 0.94 }}
                   onClick={handleCopyEmail}
                   className="inline-flex items-center gap-1.5 font-mono text-xs text-[#90D0E5] hover:text-[#ADE0F0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5] rounded-sm"
                 >
@@ -110,7 +126,7 @@ export function ContactSection() {
                       <span>Copy</span>
                     </>
                   )}
-                </button>
+                </motion.button>
               </div>
               <a
                 href={`mailto:${PORTFOLIO_PROFILE.email}`}
@@ -119,13 +135,15 @@ export function ContactSection() {
                 <span>{PORTFOLIO_PROFILE.email}</span>
                 <Mail className="w-4 h-4 text-[#90D0E5] shrink-0" aria-hidden="true" />
               </a>
-            </div>
+            </motion.div>
 
             {/* LinkedIn Card */}
-            <a
+            <motion.a
               href={PORTFOLIO_PROFILE.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 360, damping: 25 }}
               className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5] transition-colors flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
             >
               <div className="flex flex-col gap-1 min-w-0">
@@ -137,10 +155,14 @@ export function ContactSection() {
                 </span>
               </div>
               <ArrowUpRight className="w-4 h-4 text-[#90D0E5] shrink-0" aria-hidden="true" />
-            </a>
+            </motion.a>
 
             {/* Location Card */}
-            <div className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] flex items-center justify-between gap-3">
+            <motion.div
+              whileHover={{ y: -2 }}
+              transition={{ type: 'spring', stiffness: 360, damping: 25 }}
+              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#3D474C] transition-colors flex items-center justify-between gap-3"
+            >
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
                   Location
@@ -150,12 +172,18 @@ export function ContactSection() {
                 </span>
               </div>
               <MapPin className="w-4 h-4 text-[#FAB981] shrink-0" aria-hidden="true" />
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Column: Interactive Message Composer */}
-        <div className="lg:col-span-7">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: EASE_OUT }}
+          className="lg:col-span-7"
+        >
           <form
             onSubmit={handleSubmit}
             noValidate
@@ -229,41 +257,62 @@ export function ContactSection() {
               />
             </div>
 
-            {errorMessage && (
-              <p role="alert" className="font-mono text-xs text-[#FFB4AB]">
-                {errorMessage}
-              </p>
-            )}
-
-            {submittedNotice && (
-              <div
-                role="status"
-                className="p-4 rounded-xl bg-[#123A46] border border-[#245A6B] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-              >
-                <span className="text-sm text-[#E1F6FF]">
-                  Message ready for {PORTFOLIO_PROFILE.name}.
-                </span>
-                <a
-                  href={buildMailtoHref()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#90D0E5] text-[#052B35] text-xs font-semibold hover:bg-[#ADE0F0] transition-colors shrink-0"
+            <AnimatePresence mode="wait">
+              {errorMessage && (
+                <motion.p
+                  key="error"
+                  role="alert"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.18 }}
+                  className="font-mono text-xs text-[#FFB4AB]"
                 >
-                  <span>Open Email Client</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-                </a>
-              </div>
-            )}
+                  {errorMessage}
+                </motion.p>
+              )}
+
+              {submittedNotice && (
+                <motion.div
+                  key="notice"
+                  role="status"
+                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 4 }}
+                  transition={{ type: 'spring', stiffness: 360, damping: 26 }}
+                  className="p-4 rounded-xl bg-[#123A46] border border-[#245A6B] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                >
+                  <span className="text-sm text-[#E1F6FF]">
+                    Message ready for {PORTFOLIO_PROFILE.name}.
+                  </span>
+                  <a
+                    href={buildMailtoHref()}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#90D0E5] text-[#052B35] text-xs font-semibold hover:bg-[#ADE0F0] transition-colors shrink-0"
+                  >
+                    <span>Open Email Client</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <button
+              <motion.button
                 type="submit"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 24 }}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
               >
                 <Send className="w-4 h-4" aria-hidden="true" />
                 <span>Prepare Email</span>
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
                 type="button"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 24 }}
                 onClick={handleCopyMessage}
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#181C1E] text-[#E6E8E9] border border-[#2B3236] text-sm font-medium hover:border-[#90D0E5] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
               >
@@ -278,10 +327,10 @@ export function ContactSection() {
                     <span>Copy Draft</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
