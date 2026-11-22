@@ -8,6 +8,7 @@ import { AchievementsSection } from './components/AchievementsSection';
 import { AgenticAiSection } from './components/AgenticAiSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ContactSection } from './components/ContactSection';
+import { PortfolioChat } from './components/PortfolioChat';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -20,6 +21,8 @@ export default function App() {
     }
     return true;
   });
+
+  const [chatOpen, setChatOpen] = useState(false);
 
   const handleIntroComplete = useCallback(() => {
     setShowIntro(false);
@@ -50,12 +53,13 @@ export default function App() {
           <Hero ready={!showIntro} />
           <AboutSection />
           <AchievementsSection />
-          <AgenticAiSection />
+          <AgenticAiSection onOpenChat={() => setChatOpen(true)} />
           <SkillsSection />
           <ContactSection />
         </main>
         <Footer onReplayIntro={handleReplayIntro} />
       </div>
+      {!showIntro && <PortfolioChat isOpen={chatOpen} onOpenChange={setChatOpen} />}
     </MotionConfig>
   );
 }

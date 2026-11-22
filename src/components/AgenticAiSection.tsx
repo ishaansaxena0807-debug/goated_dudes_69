@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Eye, RefreshCw, Route, Zap } from 'lucide-react';
+import { Eye, MessageSquare, RefreshCw, Route, Zap } from 'lucide-react';
 import { AGENTIC_STAGES, CAREER_GOAL, type AgenticStage } from '../data/portfolio';
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
@@ -27,7 +27,11 @@ function StageIcon({
   }
 }
 
-export function AgenticAiSection() {
+interface AgenticAiSectionProps {
+  onOpenChat?: () => void;
+}
+
+export function AgenticAiSection({ onOpenChat }: AgenticAiSectionProps) {
   const [activeStageIdx, setActiveStageIdx] = useState(0);
   const [pauseStageCycle, setPauseStageCycle] = useState(false);
 
@@ -71,6 +75,21 @@ export function AgenticAiSection() {
               {CAREER_GOAL.description}
             </p>
           </motion.div>
+
+          {onOpenChat && (
+            <div>
+              <motion.button
+                type="button"
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={onOpenChat}
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+              >
+                <MessageSquare className="w-4 h-4" aria-hidden="true" />
+                <span>Ask Portfolio AI Assistant</span>
+              </motion.button>
+            </div>
+          )}
         </motion.div>
 
         <div
