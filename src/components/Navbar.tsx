@@ -43,26 +43,21 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#0E1112]/90 backdrop-blur-md border-b border-[#2B3236]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
-        {/* Zone 1: Brand Title */}
+    <header className="sticky top-0 z-50 bg-[#060608]/85 backdrop-blur-xl border-b border-white/[0.08]">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
+        {/* Zone 1: Single-line Brand Title */}
         <motion.a
           href="#top"
           whileHover={{ x: 2 }}
           whileTap={{ scale: 0.98 }}
           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-          className="inline-flex items-center gap-3 whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#90D0E5] rounded-sm"
+          className="font-display text-xl font-bold tracking-normal [word-spacing:0.1em] text-white whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#35D9FF] rounded-sm"
         >
-          <span className="inline-flex items-center justify-center w-8 h-8 rounded-md bg-[#90D0E5] text-[#052B35] font-mono text-xs font-semibold tracking-tight">
-            {PORTFOLIO_PROFILE.initials}
-          </span>
-          <span className="font-display text-base font-semibold tracking-tight text-[#E6E8E9]">
-            {PORTFOLIO_PROFILE.name}
-          </span>
+          {PORTFOLIO_PROFILE.name}
         </motion.a>
 
-        {/* Zone 2: Navigation Links with Scroll-Synced Active Indicator */}
-        <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-7">
+        {/* Zone 2: 5 Concise Single-Line Nav Links */}
+        <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => {
             const isActive = activeId === link.id;
             return (
@@ -71,8 +66,8 @@ export function Navbar() {
                 href={link.href}
                 whileHover={{ y: -1 }}
                 transition={{ duration: 0.16 }}
-                className={`relative py-1 text-sm font-medium transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#90D0E5] rounded-sm ${
-                  isActive ? 'text-[#E6E8E9]' : 'text-[#B3BCC0] hover:text-[#E6E8E9]'
+                className={`relative py-1 text-[15px] font-medium tracking-[0.015em] [word-spacing:0.08em] transition-colors whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#35D9FF] rounded-sm ${
+                  isActive ? 'text-white' : 'text-[#A3A8B5] hover:text-white'
                 }`}
               >
                 <span>{link.label}</span>
@@ -80,7 +75,7 @@ export function Navbar() {
                   <motion.span
                     layoutId="nav-active-underline"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    className="absolute left-0 right-0 bottom-0 h-[1.5px] bg-[#90D0E5]"
+                    className="absolute left-0 right-0 bottom-0 h-[1.5px] bg-gradient-to-r from-[#35D9FF] to-[#8B5CF6]"
                     aria-hidden="true"
                   />
                 )}
@@ -89,14 +84,14 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Zone 3: Primary CTA + Mobile Menu Toggle */}
+        {/* Zone 3: 1 Primary CTA + Mobile Menu Toggle */}
         <div className="flex items-center gap-3 shrink-0">
           <motion.a
             href="#contact"
-            whileHover={{ y: -1, scale: 1.02 }}
+            whileHover={{ y: -1 }}
             whileTap={{ scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 420, damping: 24 }}
-            className="hidden md:inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+            className="hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full bg-white text-[#060608] text-sm font-bold tracking-[0.01em] [word-spacing:0.08em] hover:bg-[#E2E4E9] transition-colors whitespace-nowrap shrink-0 shadow-[0_0_20px_rgba(255,255,255,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
           >
             Get in Touch
           </motion.a>
@@ -108,7 +103,7 @@ export function Navbar() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-navigation"
             onClick={() => setMobileOpen((prev) => !prev)}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#181C1E] text-[#E6E8E9] border border-[#2B3236] hover:border-[#90D0E5] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg bg-[#101217] text-white border border-white/[0.12] hover:border-[#35D9FF] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
           >
             {mobileOpen ? (
               <X className="w-5 h-5" aria-hidden="true" />
@@ -122,7 +117,7 @@ export function Navbar() {
       {/* Scroll-linked Progress Hairline */}
       <motion.div
         style={{ scaleX }}
-        className="h-[2px] w-full origin-left bg-gradient-to-r from-[#90D0E5] via-[#ADE0F0] to-[#FAB981]"
+        className="h-[2px] w-full origin-left bg-gradient-to-r from-[#35D9FF] via-[#8CF4FF] to-[#8B5CF6]"
         aria-hidden="true"
       />
 
@@ -136,7 +131,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden border-t border-[#2B3236] bg-[#14181A]"
+            className="md:hidden overflow-hidden border-t border-white/[0.08] bg-[#0A0B0E]"
           >
             <div className="px-6 py-4 flex flex-col gap-1">
               {NAV_LINKS.map((link, idx) => (
@@ -147,7 +142,7 @@ export function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.04, duration: 0.2 }}
                   onClick={() => setMobileOpen(false)}
-                  className="py-2.5 text-sm font-medium text-[#B3BCC0] hover:text-[#90D0E5] border-b border-[#2B3236]/60 last:border-b-0 transition-colors"
+                  className="py-2.5 text-base font-medium [word-spacing:0.08em] text-[#A3A8B5] hover:text-[#35D9FF] border-b border-white/[0.06] last:border-b-0 transition-colors"
                 >
                   {link.label}
                 </motion.a>
@@ -158,7 +153,7 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.2 }}
                 onClick={() => setMobileOpen(false)}
-                className="mt-3 inline-flex items-center justify-center px-4 py-2.5 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors"
+                className="mt-3 inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-white text-[#060608] text-sm font-bold [word-spacing:0.08em] hover:bg-[#E2E4E9] transition-colors"
               >
                 Get in Touch
               </motion.a>

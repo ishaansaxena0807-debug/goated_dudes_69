@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { MotionConfig } from 'motion/react';
 import { IntroCurtain } from './components/IntroCurtain';
 import { Navbar } from './components/Navbar';
+import { SideRail } from './components/SideRail';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { AchievementsSection } from './components/AchievementsSection';
@@ -47,8 +48,9 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
       <IntroCurtain visible={showIntro} onComplete={handleIntroComplete} />
-      <div className="min-h-screen flex flex-col bg-[#0E1112] text-[#E6E8E9] overflow-x-clip">
+      <div className="min-h-screen flex flex-col bg-[#060608] text-[#F4F4F6] overflow-x-clip">
         <Navbar />
+        {!showIntro && <SideRail />}
         <main id="top" className="flex-1">
           <Hero ready={!showIntro} />
           <AboutSection />

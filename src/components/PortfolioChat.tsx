@@ -60,7 +60,7 @@ function renderInlineFormatting(line: string) {
   return tokens.map((token, idx) => {
     if (token.startsWith('**') && token.endsWith('**') && token.length > 4) {
       return (
-        <strong key={idx} className="font-semibold text-[#E6E8E9]">
+        <strong key={idx} className="font-semibold text-white">
           {token.slice(2, -2)}
         </strong>
       );
@@ -69,7 +69,7 @@ function renderInlineFormatting(line: string) {
       return (
         <code
           key={idx}
-          className="px-1 py-0.5 rounded bg-[#0E1112] border border-[#2B3236] font-mono text-[11px] text-[#90D0E5]"
+          className="px-1 py-0.5 rounded bg-[#060608] border border-white/[0.12] font-mono text-[11px] text-[#35D9FF]"
         >
           {token.slice(1, -1)}
         </code>
@@ -92,7 +92,7 @@ function FormattedMessageText({ text }: { text: string }) {
         if (bulletMatch) {
           return (
             <div key={idx} className="flex items-start gap-2 pl-1">
-              <span className="text-[#90D0E5] mt-0.5 select-none" aria-hidden="true">
+              <span className="text-[#35D9FF] mt-0.5 select-none" aria-hidden="true">
                 ·
               </span>
               <span>{renderInlineFormatting(bulletMatch[1])}</span>
@@ -323,7 +323,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
             transition={{ type: 'spring', stiffness: 360, damping: 24 }}
             onClick={() => onOpenChange(true)}
             aria-label="Open Ishaan's AI Assistant chat"
-            className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-xl bg-[#90D0E5] text-[#052B35] font-semibold text-sm shadow-[0_12px_36px_rgba(0,0,0,0.45)] hover:bg-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+            className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-white text-[#060608] font-bold text-sm [word-spacing:0.08em] shadow-[0_12px_36px_rgba(0,0,0,0.65)] hover:bg-[#E2E4E9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
           >
             <MessageSquare className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span>Ask Portfolio AI</span>
@@ -342,19 +342,19 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 340, damping: 28 }}
-            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[min(430px,calc(100vw-2rem))] h-[min(620px,82vh)] rounded-2xl bg-[#111415] border border-[#3D474C] shadow-[0_24px_64px_rgba(0,0,0,0.65)] flex flex-col overflow-hidden"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[min(430px,calc(100vw-2rem))] h-[min(620px,82vh)] rounded-2xl bg-[#0A0B0E] border border-white/[0.14] shadow-[0_24px_64px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="px-4 py-3.5 bg-[#14181A] border-b border-[#2B3236] flex items-center justify-between gap-3">
+            <div className="px-4 py-3.5 bg-[#101217] border-b border-white/[0.08] flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5 min-w-0">
-                <div className="w-8 h-8 rounded-lg bg-[#123A46] border border-[#245A6B] flex items-center justify-center shrink-0">
-                  <Bot className="w-4 h-4 text-[#90D0E5]" aria-hidden="true" />
+                <div className="w-8 h-8 rounded-lg bg-[#35D9FF]/10 border border-[#35D9FF]/30 flex items-center justify-center shrink-0">
+                  <Bot className="w-4 h-4 text-[#35D9FF]" aria-hidden="true" />
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <span className="font-display text-sm font-semibold text-[#E6E8E9] truncate">
+                  <span className="font-display text-base font-bold [word-spacing:0.08em] text-white truncate">
                     Ishaan&apos;s Portfolio Assistant
                   </span>
-                  <span className="font-mono text-[11px] text-[#838E93] truncate">
+                  <span className="font-mono text-[11px] text-[#9299AB] [word-spacing:0.1em] truncate">
                     {activeRoleMeta.hint}
                   </span>
                 </div>
@@ -366,7 +366,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                   onClick={handleReset}
                   title="Reset conversation"
                   aria-label="Reset conversation"
-                  className="w-8 h-8 rounded-lg bg-[#181C1E] border border-[#2B3236] text-[#B3BCC0] hover:text-[#E6E8E9] hover:border-[#3D474C] flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                  className="w-8 h-8 rounded-lg bg-[#161922] border border-white/[0.1] text-[#A3A8B5] hover:text-white hover:border-white/[0.24] flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
                 >
                   <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
                 </button>
@@ -374,7 +374,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                   type="button"
                   onClick={() => onOpenChange(false)}
                   aria-label="Close chat panel"
-                  className="w-8 h-8 rounded-lg bg-[#181C1E] border border-[#2B3236] text-[#B3BCC0] hover:text-[#E6E8E9] hover:border-[#90D0E5] flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                  className="w-8 h-8 rounded-lg bg-[#161922] border border-white/[0.1] text-[#A3A8B5] hover:text-white hover:border-[#35D9FF] flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
                 >
                   <X className="w-4 h-4" aria-hidden="true" />
                 </button>
@@ -382,11 +382,11 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
             </div>
 
             {/* Role & Speed Controls */}
-            <div className="px-4 py-2.5 bg-[#0E1112] border-b border-[#2B3236] flex items-center justify-between gap-2 flex-wrap">
+            <div className="px-4 py-2.5 bg-[#060608] border-b border-white/[0.08] flex items-center justify-between gap-2 flex-wrap">
               <div
                 role="group"
                 aria-label="Assistant role"
-                className="inline-flex items-center gap-1 p-0.5 rounded-lg bg-[#14181A] border border-[#2B3236]"
+                className="inline-flex items-center gap-1 p-0.5 rounded-lg bg-[#101217] border border-white/[0.08]"
               >
                 {ROLE_OPTIONS.map((role) => {
                   const active = rolePreset === role.id;
@@ -397,8 +397,8 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                       onClick={() => setRolePreset(role.id)}
                       className={`px-2.5 py-1 rounded-md font-mono text-[11px] font-medium transition-colors ${
                         active
-                          ? 'bg-[#90D0E5] text-[#052B35]'
-                          : 'text-[#B3BCC0] hover:text-[#E6E8E9]'
+                          ? 'bg-white text-[#060608]'
+                          : 'text-[#A3A8B5] hover:text-white'
                       }`}
                     >
                       {role.label}
@@ -413,8 +413,8 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                 title="Switch between Fast and Detailed response mode"
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-mono text-[11px] transition-colors ${
                   speedMode === 'fast'
-                    ? 'bg-[#123A46] border-[#245A6B] text-[#90D0E5]'
-                    : 'bg-[#3C240D] border-[#FAB981]/50 text-[#FAB981]'
+                    ? 'bg-[#35D9FF]/10 border-[#35D9FF]/35 text-[#35D9FF]'
+                    : 'bg-[#8B5CF6]/15 border-[#8B5CF6]/45 text-[#A78BFA]'
                 }`}
               >
                 {speedMode === 'fast' ? (
@@ -445,8 +445,8 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                     <div
                       className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5 border ${
                         isUser
-                          ? 'bg-[#1F2427] border-[#3D474C] text-[#FAB981]'
-                          : 'bg-[#123A46] border-[#245A6B] text-[#90D0E5]'
+                          ? 'bg-[#8B5CF6]/15 border-[#8B5CF6]/35 text-[#A78BFA]'
+                          : 'bg-[#35D9FF]/10 border-[#35D9FF]/30 text-[#35D9FF]'
                       }`}
                     >
                       {isUser ? (
@@ -459,14 +459,14 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                     <div
                       className={`max-w-[82%] px-3.5 py-2.5 rounded-xl border ${
                         isUser
-                          ? 'bg-[#181C1E] border-[#3D474C] text-[#E6E8E9]'
-                          : 'bg-[#14181A] border-[#2B3236] text-[#B3BCC0]'
+                          ? 'bg-[#161922] border-white/[0.14] text-white'
+                          : 'bg-[#101217] border-white/[0.08] text-[#A3A8B5]'
                       }`}
                     >
                       {msg.text ? (
                         <FormattedMessageText text={msg.text} />
                       ) : (
-                        <span className="font-mono text-xs text-[#90D0E5]">
+                        <span className="font-mono text-xs text-[#35D9FF]">
                           Responding...
                         </span>
                       )}
@@ -478,7 +478,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
               {/* Quick Starter Prompts on Fresh Thread */}
               {messages.length === 1 && !isStreaming && (
                 <div className="pt-2 flex flex-col gap-2">
-                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-[#9299AB]">
                     Try asking
                   </span>
                   <div className="flex flex-col gap-1.5">
@@ -487,7 +487,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                         key={prompt}
                         type="button"
                         onClick={() => void sendMessage(prompt)}
-                        className="text-left px-3 py-2 rounded-lg bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5] text-xs text-[#B3BCC0] hover:text-[#E6E8E9] transition-colors"
+                        className="text-left px-3 py-2 rounded-lg bg-[#101217] border border-white/[0.08] hover:border-[#35D9FF]/50 text-xs text-[#A3A8B5] hover:text-white transition-colors"
                       >
                         {prompt}
                       </button>
@@ -513,7 +513,7 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
             {/* Input Form */}
             <form
               onSubmit={handleSubmit}
-              className="p-3 bg-[#14181A] border-t border-[#2B3236] flex items-end gap-2"
+              className="p-3 bg-[#101217] border-t border-white/[0.08] flex items-end gap-2"
             >
               <textarea
                 ref={inputRef}
@@ -524,14 +524,14 @@ export function PortfolioChat({ isOpen, onOpenChange }: PortfolioChatProps) {
                 placeholder="Ask about Ishaan's skills, projects, or goals..."
                 disabled={isStreaming}
                 aria-label="Message input"
-                className="flex-1 max-h-28 px-3 py-2.5 rounded-lg bg-[#0E1112] border border-[#2B3236] text-sm text-[#E6E8E9] placeholder:text-[#838E93] focus:outline-none focus:border-[#90D0E5] transition-colors resize-none disabled:opacity-60"
+                className="flex-1 max-h-28 px-3 py-2.5 rounded-lg bg-[#060608] border border-white/[0.1] text-sm text-white placeholder:text-[#9299AB] focus:outline-none focus:border-[#35D9FF] transition-colors resize-none disabled:opacity-60"
               />
               <motion.button
                 type="submit"
                 whileTap={{ scale: 0.94 }}
                 disabled={isStreaming || !input.trim()}
                 aria-label="Send message"
-                className="w-10 h-10 rounded-lg bg-[#90D0E5] text-[#052B35] hover:bg-[#ADE0F0] disabled:opacity-40 disabled:hover:bg-[#90D0E5] flex items-center justify-center shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                className="w-10 h-10 rounded-lg bg-white text-[#060608] hover:bg-[#E2E4E9] disabled:opacity-40 disabled:hover:bg-white flex items-center justify-center shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
               >
                 <Send className="w-4 h-4" aria-hidden="true" />
               </motion.button>

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView } from 'motion/react';
 import { Eye, MessageSquare, RefreshCw, Route, Zap } from 'lucide-react';
 import { AGENTIC_STAGES, CAREER_GOAL, type AgenticStage } from '../data/portfolio';
 
@@ -13,7 +13,7 @@ function StageIcon({
   isActive: boolean;
 }) {
   const cls = `w-5 h-5 transition-colors duration-300 ${
-    isActive ? 'text-[#90D0E5]' : 'text-[#838E93]'
+    isActive ? 'text-[#35D9FF]' : 'text-[#9299AB]'
   }`;
   switch (icon) {
     case 'eye':
@@ -35,6 +35,9 @@ export function AgenticAiSection({ onOpenChat }: AgenticAiSectionProps) {
   const [activeStageIdx, setActiveStageIdx] = useState(0);
   const [pauseStageCycle, setPauseStageCycle] = useState(false);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.2 });
+
   useEffect(() => {
     if (pauseStageCycle) return;
     const timer = window.setInterval(() => {
@@ -44,34 +47,45 @@ export function AgenticAiSection({ onOpenChat }: AgenticAiSectionProps) {
   }, [pauseStageCycle]);
 
   return (
-    <section id="agentic-ai" className="bg-[#112A33] border-b border-[#2B3236]">
-      <div className="max-w-6xl mx-auto px-6 py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+    <section
+      id="agentic-ai"
+      className="relative bg-[#0A0B0E] border-b border-white/[0.08] overflow-hidden isolate"
+    >
+      {/* Ambient Violet & Cyan Radial Glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_80%_50%,rgba(139,92,246,0.12)_0%,rgba(53,217,255,0.06)_45%,transparent_75%)]"
+      />
+
+      <div
+        ref={sectionRef}
+        className="relative z-10 max-w-7xl mx-auto px-6 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center"
+      >
         <motion.div
           initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
           transition={{ duration: 0.55, ease: EASE_OUT }}
           className="lg:col-span-6 flex flex-col gap-5"
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-[#90D0E5]">
-            Agentic AI Focus
+          <span className="font-mono text-xs uppercase tracking-[0.08em] [word-spacing:0.18em] text-[#A78BFA]">
+            03 — Agentic AI Architecture
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#E6E8E9]">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-normal [word-spacing:0.1em] leading-[1.18] text-white">
             Exploring the Future of Intelligent Systems
           </h2>
-          <p className="text-base text-[#D2DFE4] leading-relaxed">
+          <p className="text-base text-[#B5BAC7] leading-[1.75] [word-spacing:0.06em]">
             Agentic AI focuses on systems that can understand goals, plan structured steps, use
             tools, and take actions to accomplish real-world tasks reliably.
           </p>
           <motion.div
             whileHover={{ y: -3 }}
             transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-            className="p-5 rounded-xl bg-[#0E1112] border border-[#2B3236] hover:border-[#FAB981]/50 transition-colors"
+            className="p-5 rounded-xl bg-[#101217] border border-white/[0.1] hover:border-[#8B5CF6]/55 transition-colors"
           >
-            <span className="font-mono text-xs uppercase tracking-wider text-[#FAB981]">
+            <span className="font-mono text-xs uppercase tracking-[0.08em] [word-spacing:0.16em] text-[#35D9FF]">
               Career Goal · {CAREER_GOAL.title}
             </span>
-            <p className="mt-2 text-sm text-[#B3BCC0] leading-relaxed">
+            <p className="mt-2 text-sm text-[#B5BAC7] leading-[1.7] [word-spacing:0.06em]">
               {CAREER_GOAL.description}
             </p>
           </motion.div>
@@ -83,7 +97,7 @@ export function AgenticAiSection({ onOpenChat }: AgenticAiSectionProps) {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={onOpenChat}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#060608] text-sm font-bold [word-spacing:0.08em] hover:bg-[#E2E4E9] transition-colors shadow-[0_6px_24px_rgba(255,255,255,0.12)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
               >
                 <MessageSquare className="w-4 h-4" aria-hidden="true" />
                 <span>Ask Portfolio AI Assistant</span>
@@ -105,43 +119,47 @@ export function AgenticAiSection({ onOpenChat }: AgenticAiSectionProps) {
                 type="button"
                 onClick={() => setActiveStageIdx(idx)}
                 initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: isActive ? -6 : 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                animate={{ y: isActive ? -6 : 0 }}
+                animate={
+                  inView
+                    ? { opacity: 1, y: isActive ? -6 : 0 }
+                    : { opacity: 0, y: 24 }
+                }
                 whileHover={{ y: -5 }}
                 transition={{
                   opacity: { duration: 0.45, delay: idx * 0.08, ease: EASE_OUT },
                   y: { type: 'spring', stiffness: 340, damping: 24 },
                 }}
-                className={`relative text-left p-5 rounded-xl bg-[#0E1112] border transition-colors flex flex-col gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5] ${
+                className={`relative text-left p-5 rounded-xl bg-[#101217] border transition-colors flex flex-col gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF] ${
                   isActive
-                    ? 'border-[#90D0E5]'
-                    : 'border-[#2B3236] hover:border-[#3D474C]'
+                    ? 'border-[#35D9FF] shadow-[0_0_24px_rgba(53,217,255,0.14)]'
+                    : 'border-white/[0.08] hover:border-white/[0.22]'
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="agentic-active-bar"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                    className="absolute inset-x-4 top-0 h-[2px] bg-[#90D0E5]"
+                    className="absolute inset-x-4 top-0 h-[2px] bg-gradient-to-r from-[#35D9FF] to-[#8B5CF6]"
                     aria-hidden="true"
                   />
                 )}
                 <div className="flex items-center justify-between">
                   <StageIcon icon={stage.icon} isActive={isActive} />
-                  <span className="font-mono text-[11px] text-[#838E93] tabular-nums">
+                  <span className="font-mono text-[11px] text-[#9299AB] tabular-nums">
                     0{idx + 1}
                   </span>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span
-                    className={`text-base font-semibold transition-colors ${
-                      isActive ? 'text-[#90D0E5]' : 'text-[#E6E8E9]'
+                    className={`font-display text-lg font-bold transition-colors ${
+                      isActive ? 'text-[#35D9FF]' : 'text-white'
                     }`}
                   >
                     {stage.stage}
                   </span>
-                  <span className="font-mono text-xs text-[#838E93]">{stage.caption}</span>
+                  <span className="font-mono text-xs text-[#9299AB] [word-spacing:0.1em]">
+                    {stage.caption}
+                  </span>
                 </div>
               </motion.button>
             );

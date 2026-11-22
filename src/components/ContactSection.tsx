@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useRef, useState, type FormEvent } from 'react';
+import { AnimatePresence, motion, useInView } from 'motion/react';
 import { ArrowUpRight, Check, Copy, Mail, MapPin, Send } from 'lucide-react';
 import { PORTFOLIO_PROFILE } from '../data/portfolio';
 
@@ -15,6 +15,9 @@ export function ContactSection() {
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedNotice, setSubmittedNotice] = useState(false);
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(sectionRef, { once: true, amount: 0.18 });
 
   const handleCopyEmail = async () => {
     try {
@@ -75,24 +78,26 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="bg-[#0E1112]">
-      <div className="max-w-6xl mx-auto px-6 py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+    <section id="contact" className="bg-[#060608]">
+      <div
+        ref={sectionRef}
+        className="max-w-7xl mx-auto px-6 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start"
+      >
         {/* Left Column: Slide-in from Left */}
         <motion.div
           initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -24 }}
           transition={{ duration: 0.55, ease: EASE_OUT }}
           className="lg:col-span-5 flex flex-col gap-6"
         >
           <div className="flex flex-col gap-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#90D0E5]">
-              Contact
+            <span className="font-mono text-xs uppercase tracking-[0.08em] [word-spacing:0.18em] text-[#35D9FF]">
+              05 — Contact
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-[#E6E8E9]">
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-normal [word-spacing:0.1em] leading-[1.18] text-white">
               Let&apos;s build, learn, and explore technology together.
             </h2>
-            <p className="text-sm sm:text-base text-[#B3BCC0] leading-relaxed">
+            <p className="text-sm sm:text-base text-[#B5BAC7] leading-[1.75] [word-spacing:0.06em]">
               Always open to learning, collaborating on engineering projects, and connecting with
               people interested in software development and Agentic AI.
             </p>
@@ -103,17 +108,17 @@ export function ContactSection() {
             <motion.div
               whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5]/50 transition-colors flex flex-col gap-3"
+              className="p-5 rounded-xl bg-[#101217] border border-white/[0.08] hover:border-[#35D9FF]/50 transition-colors flex flex-col gap-3"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] [word-spacing:0.16em] text-[#9299AB]">
                   Direct Email
                 </span>
                 <motion.button
                   type="button"
                   whileTap={{ scale: 0.94 }}
                   onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-1.5 font-mono text-xs text-[#90D0E5] hover:text-[#ADE0F0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5] rounded-sm"
+                  className="inline-flex items-center gap-1.5 font-mono text-xs text-[#35D9FF] hover:text-[#8CF4FF] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF] rounded-sm"
                 >
                   {copiedEmail ? (
                     <>
@@ -130,10 +135,10 @@ export function ContactSection() {
               </div>
               <a
                 href={`mailto:${PORTFOLIO_PROFILE.email}`}
-                className="flex items-center justify-between gap-3 text-sm sm:text-base font-medium text-[#E6E8E9] hover:text-[#90D0E5] transition-colors break-all"
+                className="flex items-center justify-between gap-3 text-sm sm:text-base font-medium text-white hover:text-[#35D9FF] transition-colors break-all"
               >
                 <span>{PORTFOLIO_PROFILE.email}</span>
-                <Mail className="w-4 h-4 text-[#90D0E5] shrink-0" aria-hidden="true" />
+                <Mail className="w-4 h-4 text-[#35D9FF] shrink-0" aria-hidden="true" />
               </a>
             </motion.div>
 
@@ -144,34 +149,34 @@ export function ContactSection() {
               rel="noopener noreferrer"
               whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5] transition-colors flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+              className="p-5 rounded-xl bg-[#101217] border border-white/[0.08] hover:border-[#8B5CF6]/60 transition-colors flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
             >
               <div className="flex flex-col gap-1 min-w-0">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] [word-spacing:0.16em] text-[#9299AB]">
                   LinkedIn
                 </span>
-                <span className="text-sm sm:text-base font-medium text-[#E6E8E9] truncate">
+                <span className="text-sm sm:text-base font-medium text-white truncate">
                   {PORTFOLIO_PROFILE.linkedinDisplay}
                 </span>
               </div>
-              <ArrowUpRight className="w-4 h-4 text-[#90D0E5] shrink-0" aria-hidden="true" />
+              <ArrowUpRight className="w-4 h-4 text-[#A78BFA] shrink-0" aria-hidden="true" />
             </motion.a>
 
             {/* Location Card */}
             <motion.div
               whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#FAB981]/50 transition-colors flex items-center justify-between gap-3"
+              className="p-5 rounded-xl bg-[#101217] border border-white/[0.08] hover:border-white/[0.2] transition-colors flex items-center justify-between gap-3"
             >
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
+                <span className="font-mono text-[11px] uppercase tracking-[0.08em] [word-spacing:0.16em] text-[#9299AB]">
                   Location
                 </span>
-                <span className="text-sm sm:text-base font-medium text-[#E6E8E9]">
+                <span className="text-sm sm:text-base font-medium [word-spacing:0.06em] text-white">
                   {PORTFOLIO_PROFILE.regionLabel}
                 </span>
               </div>
-              <MapPin className="w-4 h-4 text-[#FAB981] shrink-0" aria-hidden="true" />
+              <MapPin className="w-4 h-4 text-[#35D9FF] shrink-0" aria-hidden="true" />
             </motion.div>
           </div>
         </motion.div>
@@ -179,21 +184,20 @@ export function ContactSection() {
         {/* Right Column: Slide-in from Right */}
         <motion.div
           initial={{ opacity: 0, x: 24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 24 }}
           transition={{ duration: 0.55, delay: 0.08, ease: EASE_OUT }}
           className="lg:col-span-7"
         >
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="p-6 sm:p-8 rounded-2xl bg-[#14181A] border border-[#2B3236] flex flex-col gap-5"
+            className="p-6 sm:p-8 rounded-2xl bg-[#101217] border border-white/[0.1] flex flex-col gap-5 shadow-[0_16px_48px_rgba(0,0,0,0.5)]"
           >
             <div className="flex flex-col gap-1">
-              <h3 className="font-display text-xl font-semibold text-[#E6E8E9]">
+              <h3 className="font-display text-2xl font-bold [word-spacing:0.1em] text-white">
                 Compose a Message
               </h3>
-              <p className="text-sm text-[#B3BCC0]">
+              <p className="text-sm text-[#B5BAC7] [word-spacing:0.06em]">
                 Prepare your inquiry below to open directly in your email client or copy to
                 clipboard.
               </p>
@@ -201,7 +205,10 @@ export function ContactSection() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-name" className="font-mono text-xs text-[#B3BCC0]">
+                <label
+                  htmlFor="contact-name"
+                  className="font-mono text-xs text-[#A3A8B5] [word-spacing:0.12em]"
+                >
                   Your Name
                 </label>
                 <input
@@ -210,12 +217,15 @@ export function ContactSection() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Alex Sharma"
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#0E1112] border border-[#2B3236] text-sm text-[#E6E8E9] placeholder:text-[#838E93] focus:outline-none focus:border-[#90D0E5] transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#060608] border border-white/[0.1] text-sm text-white placeholder:text-[#9299AB] focus:outline-none focus:border-[#35D9FF] transition-colors"
                 />
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="contact-email" className="font-mono text-xs text-[#B3BCC0]">
+                <label
+                  htmlFor="contact-email"
+                  className="font-mono text-xs text-[#A3A8B5] [word-spacing:0.12em]"
+                >
                   Your Email
                 </label>
                 <input
@@ -224,13 +234,16 @@ export function ContactSection() {
                   value={senderEmail}
                   onChange={(e) => setSenderEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#0E1112] border border-[#2B3236] text-sm text-[#E6E8E9] placeholder:text-[#838E93] focus:outline-none focus:border-[#90D0E5] transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-[#060608] border border-white/[0.1] text-sm text-white placeholder:text-[#9299AB] focus:outline-none focus:border-[#35D9FF] transition-colors"
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-subject" className="font-mono text-xs text-[#B3BCC0]">
+              <label
+                htmlFor="contact-subject"
+                className="font-mono text-xs text-[#A3A8B5] [word-spacing:0.12em]"
+              >
                 Subject
               </label>
               <input
@@ -239,12 +252,15 @@ export function ContactSection() {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="Project collaboration or AI discussion"
-                className="w-full px-3.5 py-2.5 rounded-lg bg-[#0E1112] border border-[#2B3236] text-sm text-[#E6E8E9] placeholder:text-[#838E93] focus:outline-none focus:border-[#90D0E5] transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[#060608] border border-white/[0.1] text-sm text-white placeholder:text-[#9299AB] focus:outline-none focus:border-[#35D9FF] transition-colors"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="contact-message" className="font-mono text-xs text-[#B3BCC0]">
+              <label
+                htmlFor="contact-message"
+                className="font-mono text-xs text-[#A3A8B5] [word-spacing:0.12em]"
+              >
                 Message
               </label>
               <textarea
@@ -253,7 +269,7 @@ export function ContactSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Share what you'd like to build or discuss..."
-                className="w-full px-3.5 py-2.5 rounded-lg bg-[#0E1112] border border-[#2B3236] text-sm text-[#E6E8E9] placeholder:text-[#838E93] focus:outline-none focus:border-[#90D0E5] transition-colors resize-y"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-[#060608] border border-white/[0.1] text-sm text-white placeholder:text-[#9299AB] focus:outline-none focus:border-[#35D9FF] transition-colors resize-y"
               />
             </div>
 
@@ -266,7 +282,7 @@ export function ContactSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.18 }}
-                  className="font-mono text-xs text-[#FFB4AB]"
+                  className="font-mono text-xs text-[#FDA4AF] [word-spacing:0.1em]"
                 >
                   {errorMessage}
                 </motion.p>
@@ -280,14 +296,14 @@ export function ContactSection() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 4 }}
                   transition={{ type: 'spring', stiffness: 360, damping: 26 }}
-                  className="p-4 rounded-xl bg-[#123A46] border border-[#245A6B] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-4 rounded-xl bg-[#35D9FF]/10 border border-[#35D9FF]/35 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
-                  <span className="text-sm text-[#E1F6FF]">
+                  <span className="text-sm text-white [word-spacing:0.06em]">
                     Message ready for {PORTFOLIO_PROFILE.name}.
                   </span>
                   <a
                     href={buildMailtoHref()}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#90D0E5] text-[#052B35] text-xs font-semibold hover:bg-[#ADE0F0] transition-colors shrink-0"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-[#060608] text-xs font-bold [word-spacing:0.08em] hover:bg-[#E2E4E9] transition-colors shrink-0"
                   >
                     <span>Open Email Client</span>
                     <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
@@ -302,7 +318,7 @@ export function ContactSection() {
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#90D0E5] text-[#052B35] text-sm font-semibold hover:bg-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#060608] text-sm font-bold [word-spacing:0.08em] hover:bg-[#E2E4E9] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
               >
                 <Send className="w-4 h-4" aria-hidden="true" />
                 <span>Prepare Email</span>
@@ -314,16 +330,16 @@ export function ContactSection() {
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 24 }}
                 onClick={handleCopyMessage}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#181C1E] text-[#E6E8E9] border border-[#2B3236] text-sm font-medium hover:border-[#90D0E5] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.05] text-[#F4F4F6] border border-white/[0.14] text-sm font-bold [word-spacing:0.08em] hover:border-[#35D9FF]/60 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF]"
               >
                 {copiedDraft ? (
                   <>
-                    <Check className="w-4 h-4 text-[#90D0E5]" aria-hidden="true" />
+                    <Check className="w-4 h-4 text-[#35D9FF]" aria-hidden="true" />
                     <span>Draft Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4 text-[#B3BCC0]" aria-hidden="true" />
+                    <Copy className="w-4 h-4 text-[#A3A8B5]" aria-hidden="true" />
                     <span>Copy Draft</span>
                   </>
                 )}

@@ -2,26 +2,26 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-display: "Outfit", system-ui, sans-serif;
-  --font-sans: "Instrument Sans", system-ui, sans-serif;
-  --font-mono: "Red Hat Mono", ui-monospace, monospace;
+  --font-display: "Times New Roman", "Tinos", Times, Georgia, serif;
+  --font-sans: "Times New Roman", "Tinos", Times, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  --color-canvas: #0e1112;
-  --color-surface-low: #14181a;
-  --color-surface: #181c1e;
-  --color-surface-high: #1f2427;
-  --color-border-subtle: #2b3236;
-  --color-border-strong: #3d474c;
+  --color-canvas: #060608;
+  --color-surface-low: #0a0b0e;
+  --color-surface: #101217;
+  --color-surface-card: #13151b;
+  --color-surface-high: #1a1d26;
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
 
-  --color-ink: #e6e8e9;
-  --color-ink-muted: #b3bcc0;
-  --color-ink-dim: #838e93;
+  --color-ink: #f4f4f6;
+  --color-ink-muted: #a3a8b5;
+  --color-ink-dim: #9299ab;
 
-  --color-accent: #90d0e5;
-  --color-accent-ink: #052b35;
-  --color-accent-surface: #123a46;
-  --color-warm: #fab981;
-  --color-warm-surface: #3c240d;
+  --color-cyan-electric: #35d9ff;
+  --color-cyan-bright: #8cf4ff;
+  --color-violet-accent: #8b5cf6;
+  --color-violet-light: #a78bfa;
 }
 
 @layer base {
@@ -29,7 +29,15 @@
     background-color: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    letter-spacing: 0.015em;
+    word-spacing: 0.06em;
     scroll-padding-top: 5rem;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    letter-spacing: 0.015em;
+    word-spacing: 0.06em;
   }
 
   h1,
@@ -37,12 +45,38 @@
   h3,
   h4 {
     font-family: var(--font-display);
+    letter-spacing: 0.01em;
+    word-spacing: 0.08em;
     text-wrap: balance;
   }
 
   p {
+    word-spacing: 0.06em;
     text-wrap: pretty;
   }
+}
+
+/* Architectural grid & dot-matrix textures */
+.bg-arch-grid {
+  background-color: #060608;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bg-dot-matrix {
+  background-color: #0a0b0e;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.065) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.025) 0 1px,
+    transparent 1px 3px
+  );
 }
 
 @keyframes marquee-scroll {

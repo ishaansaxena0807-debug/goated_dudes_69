@@ -7,9 +7,9 @@ interface FooterProps {
 
 export function Footer({ onReplayIntro }: FooterProps) {
   return (
-    <footer className="bg-[#14181A] border-t border-[#2B3236] py-8">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="font-mono text-xs text-[#B3BCC0]">
+    <footer className="bg-[#0A0B0E] border-t border-white/[0.08] py-8">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="font-mono text-xs text-[#A3A8B5] [word-spacing:0.14em]">
           © 2026 {PORTFOLIO_PROFILE.name}
         </p>
 
@@ -18,13 +18,13 @@ export function Footer({ onReplayIntro }: FooterProps) {
             <button
               type="button"
               onClick={onReplayIntro}
-              className="inline-flex items-center gap-1.5 font-mono text-xs text-[#90D0E5] hover:text-[#ADE0F0] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5] rounded-sm"
+              className="inline-flex items-center gap-1.5 font-mono text-xs [word-spacing:0.12em] text-[#35D9FF] hover:text-[#8CF4FF] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#35D9FF] rounded-sm"
             >
               <RotateCcw className="w-3.5 h-3.5" aria-hidden="true" />
               <span>Replay Intro</span>
             </button>
           )}
-          <p className="font-mono text-xs text-[#838E93]">
+          <p className="font-mono text-xs text-[#9299AB] [word-spacing:0.14em]">
             B.Tech CSE (AI &amp; ML) · GLA University
           </p>
         </div>
