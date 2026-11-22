@@ -77,12 +77,12 @@ export function ContactSection() {
   return (
     <section id="contact" className="bg-[#0E1112]">
       <div className="max-w-6xl mx-auto px-6 py-14 md:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-        {/* Left Column: Direct Channels */}
+        {/* Left Column: Slide-in from Left */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: EASE_OUT }}
+          transition={{ duration: 0.55, ease: EASE_OUT }}
           className="lg:col-span-5 flex flex-col gap-6"
         >
           <div className="flex flex-col gap-3">
@@ -101,9 +101,9 @@ export function ContactSection() {
           <div className="flex flex-col gap-3">
             {/* Email Card + Copy Action */}
             <motion.div
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#3D474C] transition-colors flex flex-col gap-3"
+              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5]/50 transition-colors flex flex-col gap-3"
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
@@ -142,7 +142,7 @@ export function ContactSection() {
               href={PORTFOLIO_PROFILE.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
               className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#90D0E5] transition-colors flex items-center justify-between gap-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#90D0E5]"
             >
@@ -159,9 +159,9 @@ export function ContactSection() {
 
             {/* Location Card */}
             <motion.div
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 360, damping: 25 }}
-              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#3D474C] transition-colors flex items-center justify-between gap-3"
+              className="p-5 rounded-xl bg-[#14181A] border border-[#2B3236] hover:border-[#FAB981]/50 transition-colors flex items-center justify-between gap-3"
             >
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-[11px] uppercase tracking-wider text-[#838E93]">
@@ -176,12 +176,12 @@ export function ContactSection() {
           </div>
         </motion.div>
 
-        {/* Right Column: Interactive Message Composer */}
+        {/* Right Column: Slide-in from Right */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 24 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: EASE_OUT }}
+          transition={{ duration: 0.55, delay: 0.08, ease: EASE_OUT }}
           className="lg:col-span-7"
         >
           <form

@@ -1,24 +1,46 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { PORTFOLIO_PROFILE } from '../data/portfolio';
 
 const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Achievements', href: '#achievements' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Agentic AI', href: '#agentic-ai' },
-  { label: 'Contact', href: '#contact' },
+  { id: 'about', label: 'About', href: '#about' },
+  { id: 'achievements', label: 'Achievements', href: '#achievements' },
+  { id: 'agentic-ai', label: 'Agentic AI', href: '#agentic-ai' },
+  { id: 'skills', label: 'Skills', href: '#skills' },
+  { id: 'contact', label: 'Contact', href: '#contact' },
 ];
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string>('about');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 240,
     damping: 32,
     restDelta: 0.001,
   });
+
+  useEffect(() => {
+    const sections = NAV_LINKS.map((link) => document.getElementById(link.id)).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-35% 0px -50% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-[#0E1112]/90 backdrop-blur-md border-b border-[#2B3236]">
@@ -39,19 +61,32 @@ export function Navbar() {
           </span>
         </motion.a>
 
-        {/* Zone 2: Navigation Links */}
+        {/* Zone 2: Navigation Links with Scroll-Synced Active Indicator */}
         <nav aria-label="Primary Navigation" className="hidden md:flex items-center gap-7">
-          {NAV_LINKS.map((link) => (
-            <motion.a
-              key={link.href}
-              href={link.href}
-              whileHover={{ y: -1 }}
-              transition={{ duration: 0.16 }}
-              className="relative py-1 text-sm font-medium text-[#B3BCC0] hover:text-[#E6E8E9] transition-colors whitespace-nowrap after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0 after:bg-[#90D0E5] hover:after:w-full after:transition-all after:duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#90D0E5] rounded-sm"
-            >
-              {link.label}
-            </motion.a>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isActive = activeId === link.id;
+            return (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                whileHover={{ y: -1 }}
+                transition={{ duration: 0.16 }}
+                className={`relative py-1 text-sm font-medium transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#90D0E5] rounded-sm ${
+                  isActive ? 'text-[#E6E8E9]' : 'text-[#B3BCC0] hover:text-[#E6E8E9]'
+                }`}
+              >
+                <span>{link.label}</span>
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-underline"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    className="absolute left-0 right-0 bottom-0 h-[1.5px] bg-[#90D0E5]"
+                    aria-hidden="true"
+                  />
+                )}
+              </motion.a>
+            );
+          })}
         </nav>
 
         {/* Zone 3: Primary CTA + Mobile Menu Toggle */}

@@ -5,13 +5,17 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { AboutSection } from './components/AboutSection';
 import { AchievementsSection } from './components/AchievementsSection';
+import { AgenticAiSection } from './components/AgenticAiSection';
 import { SkillsSection } from './components/SkillsSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState<boolean>(() => {
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return false;
     }
     return true;
@@ -46,6 +50,7 @@ export default function App() {
           <Hero ready={!showIntro} />
           <AboutSection />
           <AchievementsSection />
+          <AgenticAiSection />
           <SkillsSection />
           <ContactSection />
         </main>
